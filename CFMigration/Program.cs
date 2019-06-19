@@ -12,21 +12,24 @@ namespace CFMigration
         {
             using (var model = new KTStoreModel())
             {
-                model.Database.Log=Console.Write;
-                Console.WriteLine(model.Product.ToString());
-                int c = model.Product.Count();
-                AddData(model);
-                foreach (var item in model.Product)
+                model.Database.Log = Console.Write;
+
+                ShowDBSetting(model);
+
+                //AddData(model);
+
+                var products = from p in model.Product select p;
+                foreach (var item in products)
                 {
                     Console.WriteLine($"{item.Name}:{item.Price}");
                 }
 
-                var product = model.Product.First();
-                product.Name = "ASUS ROG";
-                model.SaveChanges();
-                model.Entry(product).Reload();
-                product = model.Product.First();
-                Console.WriteLine($"{product.Name}:{product.Price}");
+                //var product = model.Product.First();
+                //product.Name = "ASUS ROG";
+                //model.SaveChanges();
+                //model.Entry(product).Reload();
+                //product = model.Product.First();
+                //Console.WriteLine($"{product.Name}:{product.Price}");
 
 
             }
@@ -54,6 +57,17 @@ namespace CFMigration
                 model.Product.Add(data2);
                 model.SaveChanges();
             }
+        }
+
+
+        public static void ShowDBSetting(KTStoreModel model)
+        {
+            Console.WriteLine($@"
+                連接字串:{model.Database.Connection}
+                DB Name:{model.Database.Connection.Database}
+                ServerName Name:{model.Database.Connection.DataSource}
+                ConnectionState:{model.Database.Connection.State}
+            ");
         }
     }
 }
