@@ -10,6 +10,50 @@ namespace CFMigration
     {
         static void Main(string[] args)
         {
+            using (var model = new KTStoreModel())
+            {
+                model.Database.Log=Console.Write;
+                Console.WriteLine(model.Product.ToString());
+                int c = model.Product.Count();
+                AddData(model);
+                foreach (var item in model.Product)
+                {
+                    Console.WriteLine($"{item.Name}:{item.Price}");
+                }
+
+                var product = model.Product.First();
+                product.Name = "ASUS ROG";
+                model.SaveChanges();
+                model.Entry(product).Reload();
+                product = model.Product.First();
+                Console.WriteLine($"{product.Name}:{product.Price}");
+
+
+            }
+
+            Console.Read();
+        }
+
+        public static void AddData(KTStoreModel model)
+        {
+            if (model.Product.Count() <= 0)
+            {
+                var data1 = new Product()
+                {
+                    Name = "ASUS",
+                    Price = 39000M,
+                    Quantity = 1
+                };
+                var data2 = new Product()
+                {
+                    Name = "APPLE MAC",
+                    Price = 60000M,
+                    Quantity = 1
+                };
+                model.Product.Add(data1);
+                model.Product.Add(data2);
+                model.SaveChanges();
+            }
         }
     }
 }
