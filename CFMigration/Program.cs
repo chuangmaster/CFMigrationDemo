@@ -20,12 +20,13 @@ namespace CFMigration
 
                 //DbContextDemo(context);
 
-                //DbSqlQueryDemo(context);
+                //DbSetFindDemo(context);
 
-                DbSqlQueryDemo(context, 1,"ASUS ROG");
+                //DbSetFindDemo(context, 1,"ASUS");
 
-                DbSqlQueryDemo(context, 5, "MSI");
+                //DbSetFindDemo(context, 5, "MSI");
 
+                DbSetUpdateDemo(context);
             }
 
             Console.Read();
@@ -44,13 +45,6 @@ namespace CFMigration
             {
                 Console.WriteLine($"{item.Name}:{item.Price}");
             }
-
-            //var product = context.Product.First();
-            //product.Name = "ASUS ROG";
-            //context.SaveChanges();
-            //context.Entry(product).Reload();
-            //product = context.Product.First();
-            //Console.WriteLine($"{product.Name}:{product.Price}");
         }
 
         public static void AddData(KTStoreModel context)
@@ -129,7 +123,7 @@ namespace CFMigration
             }
         }
 
-        public static void DbSqlQueryDemo(KTStoreModel context, int productIndex, string name = "")
+        public static void DbSetFindDemo(KTStoreModel context, int productIndex, string name = "")
         {
             Product product;
             product = context.Product.Find(productIndex, name);
@@ -139,6 +133,21 @@ namespace CFMigration
             }
         }
 
+        public static void DbSetUpdateDemo(KTStoreModel context)
+        {
+            var product = context.Product.First();
+            product.Price = 10000m;
+            context.SaveChanges();
+            context.Entry(product).Reload();
+            product = context.Product.First();
+            Console.WriteLine($"{product.Name}:{product.Price}");
+            product.Price = 39000m;
+            context.SaveChanges();
+            context.Entry(product).Reload();
+            product = context.Product.First();
+            Console.WriteLine($"{product.Name}:{product.Price}");
+
+        }
 
     }
 }
