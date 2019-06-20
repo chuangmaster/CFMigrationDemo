@@ -22,7 +22,10 @@ namespace CFMigration
 
                 //DbSqlQueryDemo(context);
 
-                DbSqlQueryDemo(context, 1);
+                DbSqlQueryDemo(context, 1,"ASUS ROG");
+
+                DbSqlQueryDemo(context, 5, "MSI");
+
             }
 
             Console.Read();
@@ -52,7 +55,7 @@ namespace CFMigration
 
         public static void AddData(KTStoreModel context)
         {
-            if (context.Product.Count() <= 0)
+            if (context.Product.Count() <= 5)
             {
                 var data1 = new Product()
                 {
@@ -66,8 +69,19 @@ namespace CFMigration
                     Price = 60000M,
                     Quantity = 1
                 };
-                context.Product.Add(data1);
-                context.Product.Add(data2);
+                var data3 = new Product()
+                {
+                    Name = "LENOVO",
+                    Price = 32000M,
+                    Quantity = 1
+                };
+                var data4 = new Product()
+                {
+                    Name = "HP",
+                    Price = 39000M,
+                    Quantity = 1
+                };
+                context.Product.AddRange(new List<Product>() { data1, data2, data3, data4 });
                 context.SaveChanges();
             }
         }
@@ -115,10 +129,10 @@ namespace CFMigration
             }
         }
 
-        public static void DbSqlQueryDemo(KTStoreModel context, int productIndex)
+        public static void DbSqlQueryDemo(KTStoreModel context, int productIndex, string name = "")
         {
-
-            var product = context.Product.Find(productIndex);
+            Product product;
+            product = context.Product.Find(productIndex, name);
             if (product != null)
             {
                 Console.WriteLine(product.Name);

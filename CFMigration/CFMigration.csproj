@@ -65,9 +65,13 @@
     <Compile Include="Migrations\201906190604482_AddProductQuantity.Designer.cs">
       <DependentUpon>201906190604482_AddProductQuantity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201906190659452_AlterProductIDProperty.cs" />
-    <Compile Include="Migrations\201906190659452_AlterProductIDProperty.Designer.cs">
-      <DependentUpon>201906190659452_AlterProductIDProperty.cs</DependentUpon>
+    <Compile Include="Migrations\201906200914213_AlterNameKeyProperty.cs" />
+    <Compile Include="Migrations\201906200914213_AlterNameKeyProperty.Designer.cs">
+      <DependentUpon>201906200914213_AlterNameKeyProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906200916348_AlterNameKeyProperty1.cs" />
+    <Compile Include="Migrations\201906200916348_AlterNameKeyProperty1.Designer.cs">
+      <DependentUpon>201906200916348_AlterNameKeyProperty1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Product.cs" />
@@ -88,8 +92,11 @@
     <EmbeddedResource Include="Migrations\201906190604482_AddProductQuantity.resx">
       <DependentUpon>201906190604482_AddProductQuantity.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906190659452_AlterProductIDProperty.resx">
-      <DependentUpon>201906190659452_AlterProductIDProperty.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906200914213_AlterNameKeyProperty.resx">
+      <DependentUpon>201906200914213_AlterNameKeyProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906200916348_AlterNameKeyProperty1.resx">
+      <DependentUpon>201906200916348_AlterNameKeyProperty1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,13 +7,13 @@ namespace CFMigration.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AlterProductIDProperty : IMigrationMetadata
+    public sealed partial class AlterNameKeyProperty1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AlterProductIDProperty));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AlterNameKeyProperty1));
         
         string IMigrationMetadata.Id
         {
-            get { return "201906190659452_AlterProductIDProperty"; }
+            get { return "201906200916348_AlterNameKeyProperty1"; }
         }
         
         string IMigrationMetadata.Source
