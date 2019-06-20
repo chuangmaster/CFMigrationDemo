@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,9 +16,13 @@ namespace CFMigration
         {
             using (var context = new KTStoreModel())
             {
-                ObjectContextDemo(context);
+                //ObjectContextDemo(context);
 
-                DbContextDemo(context);
+                //DbContextDemo(context);
+
+                //DbSqlQueryDemo(context);
+
+                DbSqlQueryDemo(context, 1);
             }
 
             Console.Read();
@@ -95,6 +100,26 @@ namespace CFMigration
             var oq = context.Product.Where(p => p.Price > 1000 && p.Price < 50000);
             Console.WriteLine(oq.ToString());
             foreach (Product product in oq)
+            {
+                Console.WriteLine(product.Name);
+            }
+        }
+
+        public static void DbSqlQueryDemo(KTStoreModel context)
+        {
+            var sql = "Select * From Products Where price<=@price";
+            var result = context.Product.SqlQuery(sql, new SqlParameter("price", 40000));
+            foreach (var product in result)
+            {
+                Console.WriteLine(product.Name);
+            }
+        }
+
+        public static void DbSqlQueryDemo(KTStoreModel context, int productIndex)
+        {
+
+            var product = context.Product.Find(productIndex);
+            if (product != null)
             {
                 Console.WriteLine(product.Name);
             }
