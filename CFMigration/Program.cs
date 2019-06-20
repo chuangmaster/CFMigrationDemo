@@ -26,7 +26,9 @@ namespace CFMigration
 
                 //DbSetFindDemo(context, 5, "MSI");
 
-                DbSetUpdateDemo(context);
+                //DbSetUpdateDemo(context);
+
+                DbSetRemoveDemo(context);
             }
 
             Console.Read();
@@ -146,6 +148,27 @@ namespace CFMigration
             context.Entry(product).Reload();
             product = context.Product.First();
             Console.WriteLine($"{product.Name}:{product.Price}");
+
+        }
+
+        public static void DbSetRemoveDemo(KTStoreModel context)
+        {
+            var product = new Product() //跑錯棚的商品
+            {
+                Name = "統一科學麵",
+                Price = 20,
+                Quantity = 1
+            };
+            context.Product.Add(product); //做假資料
+            context.SaveChanges();
+            context.Entry(product).Reload();
+            var count = context.Product.Where(p => p.Name == "統一科學麵").Count();
+            Console.WriteLine($"資料筆數:{count}");
+            var removeData = context.Product.First(p => p.Name == "統一科學麵");
+            context.Product.Remove(removeData);
+            context.SaveChanges();
+            count = context.Product.Where(p => p.Name == "統一科學麵").Count();
+            Console.WriteLine($"資料筆數:{count}");
 
         }
 
