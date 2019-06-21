@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +19,8 @@ namespace CFMigration
         {
             using (var context = new KTStoreModel())
             {
+                //context.Database.Log = Console.Write;
+
                 //ObjectContextDemo(context);
 
                 //DbContextDemo(context);
@@ -28,7 +33,9 @@ namespace CFMigration
 
                 //DbSetUpdateDemo(context);
 
-                DbSetRemoveDemo(context);
+                //DbSetRemoveDemo(context);
+
+                LocalQuery(context);
             }
 
             Console.Read();
@@ -36,7 +43,7 @@ namespace CFMigration
 
         public static void OldTest(KTStoreModel context)
         {
-            context.Database.Log = Console.Write;
+            context.Database.Log = Console.WriteLine;
 
             ShowDBSetting(context);
 
@@ -170,6 +177,42 @@ namespace CFMigration
             count = context.Product.Where(p => p.Name == "統一科學麵").Count();
             Console.WriteLine($"資料筆數:{count}");
 
+        }
+
+        public static void LocalQuery(KTStoreModel context)
+        {
+            //part 1
+
+            //Console.WriteLine($"Before query DB Amount:{context.Product.Count()} ");
+            //Console.WriteLine($"Before query Local Amount:{context.Product.Local.Count()} ");
+            //Console.WriteLine();
+
+            //Console.WriteLine("After query...");
+            //foreach (var VARIABLE in context.Product)
+            //{
+            //    //do something...
+            //}
+            //Console.WriteLine($"After query Local Amount:{context.Product.Local.Count()} ");
+            //Console.WriteLine($"After query DB Amount:{context.Product.Count()} ");
+            //Console.WriteLine();
+
+            //var product = new Product() //跑錯棚的商品
+            //{
+            //    Name = "統一科學麵",
+            //    Price = 20,
+            //    Quantity = 1
+            //};
+            //context.Product.Add(product); //做假資料
+            //Console.WriteLine($"After add test data...");
+            //Console.WriteLine($"Before DB Amount:{context.Product.Count()} ");
+            //Console.WriteLine($"Before Local Amount:{context.Product.Local.Count()} ");
+
+            //part 2
+            Console.WriteLine($"Before query DB Amount:{context.Product.Count()} ");
+            Console.WriteLine($"Before query Local Amount:{context.Product.Local.Count()} ");
+            context.Product.Load(); //執行此行資料就已經載入Local
+            Console.WriteLine($"After query DB Amount:{context.Product.Count()} ");
+            Console.WriteLine($"After query Local Amount:{context.Product.Local.Count()} ");
         }
 
     }
